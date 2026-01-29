@@ -17,10 +17,6 @@ app.use(cors());
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 app.use('/rke143', rkeRouter);
 app.use('/countries', countriesRouter);
 app.use('/recipes', recipesRouter);
