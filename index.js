@@ -6,12 +6,16 @@ const countriesRouter = require('./routes/countries');
 const recipesRouter = require('./routes/recipes');
 const ingredientsRouter = require('./routes/ingredients');
 const fullRecipesRouter = require('./routes/fullrecipes');
+const randomRouter = require('./routes/random');
+
+const path = require('path');
 
 const app = express();
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-	res.send('RKE143 Server is running');
+	res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.use('/rke143', rkeRouter);
@@ -19,6 +23,7 @@ app.use('/countries', countriesRouter);
 app.use('/recipes', recipesRouter);
 app.use('/ingredients', ingredientsRouter);
 app.use('/fullrecipes', fullRecipesRouter);
+app.use('/random', randomRouter);
 
 const port = process.env.PORT || 3000;
 

@@ -8,7 +8,8 @@ router.get('/', async (req, res) => {
 		const query = `
 			SELECT a.id AS recipeid,
 			       a.recipename,
-			   	   a.instructions,
+		   	   a.instructions,
+			       a.imageurl,
 			       b.ingredientname
 			FROM recipe a
 			INNER JOIN ingredientinrecipe c ON a.id = c.recipeid
@@ -19,14 +20,15 @@ router.get('/', async (req, res) => {
 
 		const recipeMap = {};
 		for (const row of result.rows) {
-			const { recipeid, recipename, instructions, ingredientname } = row;
+			const { recipeid, recipename, instructions, imageurl, ingredientname } = row;
 
 			if (!recipeMap[recipeid]) {
 				recipeMap[recipeid] = {
 					recipe: {
 						id: recipeid,
 						recipename: recipename,
-						instructions: instructions
+						instructions: instructions,
+						imageurl: imageurl
 					},
 					ingredients: []
 				};
